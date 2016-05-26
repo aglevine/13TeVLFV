@@ -44,6 +44,7 @@ ROOT.gStyle.SetOptStat(0)
 
 savedir=argv[1]
 rootdir = argv[2]
+postfit = argv[3]
 canvas = ROOT.TCanvas("canvas","canvas",800,800)
 
 legend = ROOT.TLegend(0.65,0.60,0.93,0.98,' ','brNDC')
@@ -70,13 +71,12 @@ mlfitMap = {"mue0J":"mlfit_MINOS_COMB_MINOS.root","mue1J" : "mlfit_MINOS_COMB_MI
 dataFileMap = {"mue0J":"LFV_datacard_shape_EMU_0Jet.root","mue1J" : "LFV_datacard_shape_EMU_1Jet.root", "mue2J": "LFV_datacard_shape_EMU_2Jet.root","mutau0J":"LFV_datacard_shape_MUTAU_0Jet.root","mutau1J" : "LFV_datacard_shape_MUTAU_1Jet.root", "mutau2J": "LFV_datacard_shape_MUTAU_2Jet.root"}
 dirDataMap = {"mue0J":"LFV_MuE_0Jet_1_13TeVMuE","mue1J" : "LFV_MuE_1Jet_1_13TeVMuE", "mue2J": "LFV_MuE_2Jet_1_13TeVMuE","mutau0J":"LFV_MuTau_0Jet_1_13TeVMuTau","mutau1J":"LFV_MuTau_1Jet_1_13TeVMuTau","mutau2J":"LFV_MuTau_2Jet_1_13TeVMuTau"}
 maxHistMap = {"mue0J": 30, "mue1J": 35, "mue2J": 70,"mutau0J": 180, "mutau1J": 60, "mutau2J": 10}
-outfileNameMap = {"mue0J":"LFVMuE_SR_OS_0Jet_UnBlinded_Postfit","mue1J" : "LFVMuE_SR_OS_1Jet_UnBlinded_Postfit", "mue2J": "LFVMuE_SR_OS_2Jet_UnBlinded_Postfit","mutau0J":"LFVMuTau_SR_OS_0Jet_UnBlinded_Postfit","mutau1J" : "LFVMuTau_SR_OS_1Jet_UnBlinded_Postfit", "mutau2J": "LFVMuTau_SR_OS_2Jet_UnBlinded_Postfit"}
+outfileNameMap = {"mue0J":"LFVMuE_SR_OS_0Jet_UnBlinded_Postfit","mue1J" : "LFVMuE_SR_OS_1Jet_UnBlinded_Postfit", "mue2J": "LFVMuE_SR_OS_2Jet_UnBlinded_Postfit","mutau0J":"LFVMuTau_SR_OS_0Jet_UnBlinded_Postfit","mutau1J" : "LFVMuTau_SR_OS_1Jet_UnBlinded_Postfit", "mutau2J": "LFVMuTau_SR_OS_2Jet_UnBlinded_Postfit"} #only used for postfit
 outfile_name = savedir+"/"+outfileNameMap[rootdir]
 lumi = JSONlumi
 print rootdir
 inputFile = ROOT.TFile(savedir+"/"+dataFileMap[rootdir])
 ROOT.gROOT.cd()
-postfit = True
 data = inputFile.Get(dirDataMap[rootdir]+"/data_obs")
 ztautau = get_histos(savedir,mlfitMap[rootdir],dirMap[rootdir],"ZTauTau",postfit)
 zjets = get_histos(savedir,mlfitMap[rootdir],dirMap[rootdir],"Zothers",postfit)
@@ -306,7 +306,7 @@ legend.AddEntry(diboson,'VV',"f")
 if "mue" in rootdir:
 	legend.AddEntry(wg,"W#gamma","f")
 legend.AddEntry(wjets,'Misidentified leptons','f')
-legend.AddEntry(gghmutau125,'LFV GG Higgs (BR=1%)',"l")
+legend.AddEntry(gghmutau125,'LFV GF Higgs (BR=1%)',"l")
 legend.AddEntry(vbfhmutau125,'LFV VBF Higgs (BR=1%)',"l")
 
 p_ratio.cd()
@@ -341,7 +341,7 @@ ratio.GetYaxis().SetNdivisions(505)
 ratio.GetYaxis().SetLabelFont(42)
 ratio.GetYaxis().SetLabelSize(0.1)
 ratio.GetYaxis().SetRangeUser(-1,1)
-ratio.GetYaxis().SetTitle("#frac{Data-MC}{MC}")
+ratio.GetYaxis().SetTitle("#frac{Data-BG}{BG}")
 ratio.GetYaxis().CenterTitle(1)
 ratio.GetYaxis().SetTitleOffset(0.4)
 ratio.GetYaxis().SetTitleSize(0.12)

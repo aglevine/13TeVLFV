@@ -45,8 +45,9 @@ plot_13TeV_FromDataCards_Combined:
 
 This script creates PAS ready plots from the datacards.
 
-Usage: plot_13TeV_FromDataCards_Combined.py [dirname] [channel]
+Usage: plot_13TeV_FromDataCards_Combined.py [dirname] [channel] [postfit option]
 
 Dirname is the directory with the mlfit file.
 Channel is the channel to be plotted.
         Options: mue0J, mue1J, mue2J, mutau0J, mutau1J, mutau2J
+postfit option is True for postfit plots, False for prefit plots
